@@ -58,6 +58,10 @@ def change_scheduler(*args):
     canvas.create_text(250, 90, text="Pipeline created, go for Generate", fill="black")
     canvas.update()
 
+def cmd_randomize():
+	entry_seed.delete(0, 'end')
+	entry_seed.insert(0,str(np.random.randint(1,9223372036854775807, dtype=np.int64)))
+
 def cmd_generate():
     prompt = entry_prompt.get()
     seed = int(entry_seed.get())
@@ -155,6 +159,8 @@ entry_steps.pack(expand=True,fill=tk.X)
 
 btn_generate = tk.Button(master=frame_buttons, text="Generate", command=cmd_generate)
 #btn_generate.pack()
+btn_randomize = tk.Button(master=frame_buttons, text="Random Seed", command=cmd_randomize)
+btn_randomize.pack()
 schedulers = {'DDIM','LMSDiscrete','PNDM'}
 strvar_scheduler = tk.StringVar()
 strvar_scheduler.set('Scheduler')
