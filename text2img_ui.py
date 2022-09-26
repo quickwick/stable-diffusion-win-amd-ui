@@ -26,11 +26,17 @@ def get_latents_from_seed(passed_seed: int, width: int, height:int) -> np.ndarra
 def change_scheduler(*args):
     print (strvar_scheduler.get())
     if strvar_scheduler.get() == 'DDIM':
-        scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000, tensor_format="np")
+        scheduler = DDIMScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", clip_sample=False, set_alpha_to_one=False, num_train_timesteps=1000, tensor_format="np")
+        entry_steps.delete(0, 'end')
+        entry_steps.insert(0, '8')
     elif strvar_scheduler.get() == 'LMSDiscrete':
-        scheduler = LMSDiscreteScheduler(tensor_format="np")
+        scheduler = LMSDiscreteScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", num_train_timesteps=1000, tensor_format="np")
+        entry_steps.delete(0, 'end')
+        entry_steps.insert(0, '25')
     elif strvar_scheduler.get() == 'PNDM':
-        scheduler = PNDMScheduler()
+        scheduler = PNDMScheduler(beta_start=0.00085, beta_end=0.012, beta_schedule="scaled_linear", skip_prk_steps=True, num_train_timesteps=1000, tensor_format="np")
+        entry_steps.delete(0, 'end')
+        entry_steps.insert(0, '25')
 
     global pipe
     canvas.delete("all")
@@ -59,8 +65,8 @@ def change_scheduler(*args):
     canvas.update()
 
 def cmd_randomize():
-	entry_seed.delete(0, 'end')
-	entry_seed.insert(0,str(np.random.randint(1,9223372036854775807, dtype=np.int64)))
+    entry_seed.delete(0, 'end')
+    entry_seed.insert(0,str(np.random.randint(1,9223372036854775807, dtype=np.int64)))
 
 def cmd_generate():
     prompt = entry_prompt.get()

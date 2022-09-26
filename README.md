@@ -21,6 +21,12 @@ sample=latent_model_input, timestep=np.array([t], dtype=np.int64), encoder_hidde
 
 Reference: https://www.travelneil.com/stable-diffusion-updates.html
 
+Finally, you need to install scipy (to use the LMSDiscreteScheduler):
+
+```
+pip install scipy
+```
+
 ## Configuring/Using the GUI
 
 Once you have a working Stable Diffusion setup (confirmed with the basic test scripts from the guides), you should be able to use this GUI.
